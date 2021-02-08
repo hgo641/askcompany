@@ -12,7 +12,9 @@ class Post(models.Model):
     def __str__(self):
         #    return "Custom Post object({})".format(self.id)
         return self.message
-
+#?
+    class Meta:
+        ordering = ['-id']
 
     def message_length(self):
         return len(self.message)

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>Instagram</title>
+</head>
+<body>
+    <form action ="" method="get">
+        <input type = "text" name ="q" value ="{{q}}">
+        <input type ="submit">
+    </form>
+    <table class="table">
+        <tbody>
+    {% for post in post_list%}
+    <tr>
+        <td>
+        {{post.message}}
+        </td>
+        <td>
+        {% if post.photo %}
+            <img src="{{post.photo.url}}"/>
+        {% else %}
+            No Photo
+        {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+
