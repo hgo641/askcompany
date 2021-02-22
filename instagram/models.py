@@ -14,6 +14,10 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=False, verbose_name="공개여부")
     photo = models.ImageField(blank=True, upload_to="instagram/post/%Y/%m/%d")
+    tag_set = models.ManyToManyField("Tag", blank=True)
+    # 위에서부터 실행하기때문에 그냥Tag라하면 못알아들음/
+    # 문자열로 해줘야함
+    # mtm의 경우 blank = True인 경우가 많음
 
     def __str__(self):
         #    return "Custom Post object({})".format(self.id)
@@ -32,8 +36,15 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE
+        Post, on_delete=models.CASCADE, limit_choices_to={"is_public": True}
     )  # 가상의 이름 실제 데이터베이스필드와는 다름 post_id
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
